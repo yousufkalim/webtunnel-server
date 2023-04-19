@@ -31,15 +31,15 @@ The webtunnel server is now running and waiting for client requests on port 1234
 
 #### use your server
 
-You can now use your domain with the `--host` flag for the `lt` client.
+You can now use your domain with the `--host` flag for the `wt` client.
 
 ```shell
-lt --host http://sub.example.tld:1234 --port 9000
+wt --host http://sub.example.tld:1234 --port 9000
 ```
 
 You will be assigned a URL similar to `heavy-puma-9.sub.example.com:1234`.
 
-If your server is acting as a reverse proxy (i.e. nginx) and is able to listen on port 80, then you do not need the `:1234` part of the hostname for the `lt` client.
+If your server is acting as a reverse proxy (i.e. nginx) and is able to listen on port 80, then you do not need the `:1234` part of the hostname for the `wt` client.
 
 ## REST API
 
@@ -50,19 +50,3 @@ Create a new tunnel. A webtunnel client posts to this enpoint to request a new t
 ### GET /api/status
 
 General server information.
-
-## Deploy
-
-You can deploy your own webtunnel server using the prebuilt docker image.
-
-**Note** This assumes that you have a proxy in front of the server to handle the http(s) requests and forward them to the webtunnel server on port 3000. You can use our [webtunnel-nginx](https://github.com/yousufkalim/webtunnel-nginx) to accomplish this.
-
-If you do not want ssl support for your own tunnel (not recommended), then you can just run the below with `--port 80` instead.
-
-```
-docker run -d \
-    --restart always \
-    --name webtunnel \
-    --net host \
-    yousufkalim/webtunnel-server:latest --port 3000
-```
